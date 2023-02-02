@@ -2,14 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-//recruitment GET method
+// Retrorna las alertas globales
 router.get('/', (req, res) => {
-
-});
-
-
-//recruitment POST method
-router.post('/', (req, res) => {
 
 });
 

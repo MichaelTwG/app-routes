@@ -5,10 +5,13 @@ const { v4: uuidv4 } = require("uuid");
 // Enpoints imports
 const login = require('./endpoints/login');
 const singup = require('./endpoints/singup');
-const dashboard = require('./endpoints/dashboard');
-const recruitment = require('./endpoints/recruitment');
-const seekTeam = require('./endpoints/seekTeam');
-const preferences = require('./endpoints/preferences');
+const logout = require('./endpoints/logout');
+const alerts = require('./endpoints/alerts');
+const join = require('./endpoints/join');
+const reacent = require('./endpoints/reacent');
+const search = require('./endpoints/search');
+const users = require('./endpoints/users');
+
 
 const app = express();
 
@@ -35,10 +38,12 @@ app.use((req, res, next) => {
 // Endpoints
 app.use('/login', login);
 app.use('/singup', singup);
-app.use('/dashboard', dashboard);
-app.use('/recuitment', recruitment);
-app.use('/seek_team', seekTeam);
-app.use('/preferences', preferences);
+app.use('/logout', logout);
+app.use('/reacent', reacent);
+app.use('/join', join);
+app.use('/search', search);
+app.use('/alerts', alerts);
+app.use('/users', users);
 
 
 // API start
