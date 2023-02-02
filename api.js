@@ -1,6 +1,7 @@
 const session = require("express-session");
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const cors = require('cors');
 
 // Enpoints imports
 const login = require('./endpoints/login');
@@ -45,6 +46,8 @@ app.use('/search', search);
 app.use('/alerts', alerts);
 app.use('/users', users);
 
+//allow cros
+app.use(cors({origin: "*"}));
 
 // API start
 app.listen(3000, () => {

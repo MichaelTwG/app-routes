@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXIST BattleCall_v0.1;
+CREATE DATABASE IF NOT EXISTS BattleCall_v0;
 
 USE BattleCall_v0;
 

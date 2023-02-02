@@ -10,7 +10,7 @@ class Storage {
 
 const connection = mysql.createConnection ({
     host : 'localhost',
-    database : 'BattleCall_v0.1',
+    database : 'BattleCall_v0',
     user : 'root',
     password : 'root'
 });
@@ -19,10 +19,10 @@ connection.connect((err) => {
     if (err) {
         console.log(err);
     } else {
-        console.log("Conection Success! \n");
+        console.log("BASE DE DATOS - Conection Success!");
     };
 });
 
-st = new Storage(connection);
+const st = new Storage(connection);
 
 module.exports = st;
