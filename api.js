@@ -1,7 +1,16 @@
-const session = require("express-session");
-const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const express = require('express');
+
+const app = express();
+
+const { Server: HttpServer } = require('http');
+const { Server: IOServer } = require('socket.io');
+
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
 
 // Enpoints imports
 const login = require('./endpoints/login');
@@ -14,7 +23,11 @@ const search = require('./endpoints/search');
 const users = require('./endpoints/users');
 
 
-const app = express();
+
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({origin: "*"}));
 
 // Session settings
 app.use(session(
@@ -27,13 +40,13 @@ app.use(session(
 
 
 //Chek if the user is loged or not
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    if (!req.session.isLoggedIn) {
-      return res.redirect("/login");
-    }
-    res.redirect("/dashboard");
-});
+//     if (!req.session.isLoggedIn) {
+//       return res.redirect("/login");
+//     }
+//     next();
+// });
 
 
 // Endpoints
@@ -46,10 +59,13 @@ app.use('/search', search);
 app.use('/alerts', alerts);
 app.use('/users', users);
 
-//allow cros
-app.use(cors({origin: "*"}));
+//io.socket
+
+io.on("connection", (socket) => {
+    console.log("New Client Connected");
+});
 
 // API start
-app.listen(3000, () => {
+httpServer.listen(3000, () => {
     console.log("Api started in port 3000");
 })

@@ -1,21 +1,37 @@
 const express = require('express');
 const User = require('../models/users');
 
-const router = express.Router();
+const login = express.Router();
 
 // login POST method
-router.post('/', (req, res) => {
+login.post('/', (req, res) => {
     const data = req.body;
-    User.getUser("username", data.username, (userDB) => {
+
+    let tabla;
+    let campo;
+
+    if (data.username) {
+        tabla = "username"
+        campo = data.username;
+    } else if (data.email) {
+        tabla = "email";
+        campo = data.email;
+    } else {
+        res.send({status: false});
+        return;
+    }
+
+    User.getUser(tabla, campo, (userDB) => {
         if (userDB && userDB.password === data.password) {
-            //data.status is true if the login is successful
             req.session.isLoggedIn = true;
             req.session.userid = userDB.id;
             
             res.send({status: true});
+            console.log(userDB);
+        } else {
+            res.send({status: false});
         }
-        res.send({status: false});
     });
 });
 
-module.exports = router;
+module.exports = login;

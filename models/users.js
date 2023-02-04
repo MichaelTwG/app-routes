@@ -27,7 +27,7 @@ class User {
     }
 
     saveProperties() {
-        const query = `UPDATE users SET properties = ${this.properties} WHERE id = ${this.userid};`;
+        const query = `UPDATE users SET properties = ${JSON.stringify(this.properties)} WHERE id = ${this.userid};`;
 
         storage.connection.query(query, (err, res, fields) => {
             if (err) {

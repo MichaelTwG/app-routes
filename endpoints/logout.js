@@ -4,8 +4,9 @@ const router = express.Router();
 
 // login GET method
 router.get('/', (req, res) => {
-    req.session.isLoggedIn = false;
-    res.send({status: true});
+    if (req.session.isLoggedIn === true) {
+        req.session.destroy();
+    }
 });
 
 module.exports = router;
