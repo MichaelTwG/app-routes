@@ -7,21 +7,21 @@ const login = express.Router();
 login.post('/', (req, res) => {
     const data = req.body;
 
-    let tabla;
-    let campo;
+    let field;
+    let value;
 
     if (data.username) {
-        tabla = "username"
-        campo = data.username;
+        field = "username"
+        value = data.username;
     } else if (data.email) {
-        tabla = "email";
-        campo = data.email;
+        field = "email";
+        value = data.email;
     } else {
         res.send({status: false});
         return;
     }
 
-    User.getUser(tabla, campo, (userDB) => {
+    User.getUser(field, value, (userDB) => {
         if (userDB && userDB.password === data.password) {
             req.session.isLoggedIn = true;
             req.session.userid = userDB.id;

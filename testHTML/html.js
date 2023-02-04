@@ -1,7 +1,7 @@
 const data = {
-    username: "homunculo1",
-    password: "homunculo1",
-    email: "homunculo1_email"
+    username: "homunculo2",
+    password: "homunculo2",
+    email: "homunculo2_email"
 };
 
 fetch('http://172.20.22.83:3000/singup', 

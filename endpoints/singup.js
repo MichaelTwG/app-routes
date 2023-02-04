@@ -4,7 +4,6 @@ const User = require('../models/users');
 const singup = express.Router();
 
 // singup POST method
-// Chequea si usuario o el email estar registrados, si no envia status: false, de lo contrario crea el usuario en la BD y envia status:true
 singup.post('/', (req, res) => {
     const data = req.body;
 
