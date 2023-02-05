@@ -1,38 +1,31 @@
-const { ok } = require('assert');
 const { v4:uuidv4} = require('uuid');
 const storage = require('../storages/mysql');
 
 class Game {
-    constructor(name, propertiesList){
+    constructor(name, propertieslist){
         this.id = uuidv4();
         this.name = name;
-        this.propertiesList = propertiesList;
+        this.propertieslist = propertieslist;
     }
 
     save() {
-        const values = `"${this.id}", "${this.name}", "${JSON.stringify(this.propertiesList)}"`;
+        const values = [this.id, this.name, JSON.stringify(this.propertieslist)];
+        const query = 'INSERT INTO games (id, gamename, propertieslist) VALUES (?, ?, ?)';
 
-        const query = `INSERT INTO users (id, gamename, propertieslist) VALUES (${values});`;
-
-        storage.connection.query(query, (err, res, fields) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-        })
-
+        storage.connection.query(query, values , (err, res, fields) => {
+            if (err) throw err;
+            console.log(res);
+        });
     }
 
     static getGame(campo, value, callback) {
-        const query = `SELECT * FROM users WHERE ${campo} = "${value}"`;
+        const values = [campo, value];
+        const query = 'SELECT * FROM games WHERE ?? = ?';
 
-        storage.connection.query(query, (err, res, fields) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            callback(res[0]);
-        })
+        storage.connection.query(query, values, (err, res, fields) => {
+            if (err) throw err;
+            callback(res);
+        });
     }
 }
 

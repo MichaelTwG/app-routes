@@ -13,27 +13,22 @@ class User {
     }
 
     save() {
-        const values = `"${this.userid}", "${this.creationdate}", "${this.username}", "${this.email}" , "${this.password}"`;
+        const values = [this.userid, this.creationdate, this.username, this.email, this.password];
 
-        const query = `INSERT INTO users (id, creationdate, username, email, password) VALUES (${values});`;
+        const query = 'INSERT INTO users (id, creationdate, username, email, password) VALUES (?, ?, ?, ?, ?)';
 
-        storage.connection.query(query, (err, res, fields) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
+        storage.connection.query(query, values, (err, res, fields) => {
+            if (err) throw err;
         })
 
     }
 
     saveProperties() {
-        const query = `UPDATE users SET properties = ${JSON.stringify(this.properties)} WHERE id = ${this.userid};`;
+        const values = [JSON.stringify(this.properties), this.userid]
+        const query = `UPDATE users SET properties = ? WHERE id = ?;`;
 
-        storage.connection.query(query, (err, res, fields) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
+        storage.connection.query(query, values, (err, res, fields) => {
+            if (err) throw err;
         })
     }
 
@@ -51,3 +46,26 @@ class User {
 }
 
 module.exports = User;
+
+// const newUser = new User("User", "User", "UserEmail");
+// newUser.save()
+
+// const properties = [
+//     {
+//         game: "Game1",
+//         properties: {
+//             rol: "top",
+//             rank: "hierro"
+//         }
+//     },
+//     {
+//         game: "Game2",
+//         properties: {
+//             rol: "sup",
+//             rank: "bronce"
+//         }
+//     }
+// ]
+
+// newUser.properties = properties;
+// newUser.saveProperties();

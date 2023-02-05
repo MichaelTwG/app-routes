@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 class Storage {
     constructor (connection) {
