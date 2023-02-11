@@ -1,0 +1,7 @@
+.alert {
+    margin: 20px;
+    background-color: #040404;
+    padding: 50px;
+    color: #fff;
+    max-height: 35vh;
+  }
